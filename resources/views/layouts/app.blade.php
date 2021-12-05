@@ -15,30 +15,37 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="{{ asset('backend/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('backend/dist/css/adminlte.min.css') }}">
+
+    <!-- Livewire styles -->
+    <livewire:styles />
+
+    <!-- Toastr styles -->
+    <link href="{{ asset('backend/plugins/toastr/toastr.min.css') }}" rel="stylesheet"/>
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
 
     <!-- Navbar -->
-    @include('admin.layouts.partials.navbar')
+    @include('layouts.partials.navbar')
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
-    @include('admin.layouts.partials.sidebar')
+    @include('layouts.partials.sidebar')
     <!-- END Main Sidebar Container -->
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        @yield('content')
+        {{ $slot }}
     </div>
     <!-- /.content-wrapper -->
 
     <!-- Control Sidebar -->
-    @include('admin.layouts.partials.aside')
+    @include('layouts.partials.aside')
     <!-- /.control-sidebar -->
 
     <!-- Main Footer -->
-    @include('admin.layouts.partials.footer')
+    @include('layouts.partials.footer')
     <!-- /.main-footer -->
 </div>
 <!-- ./wrapper -->
@@ -51,5 +58,33 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{ asset('backend/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('backend/dist/js/adminlte.min.js') }}"></script>
+
+<!-- Livewire scripts -->
+<livewire:scripts />
+<!-- Toastr scripts -->
+<script src="{{ asset('backend/plugins/toastr/toastr.min.js') }}"></script>
+
+<script>
+    $(document).ready(function () {
+        toastr.options = {
+            "progressBar": true,
+            "positionClass": "toast-bottom-right",
+        }
+        window.addEventListener('hide-form', event => {
+            $('#form').modal('hide');
+            toastr.success(event.detail.message, 'Success !!!');
+        })
+    })
+</script>
+
+<script>
+    window.addEventListener('show-form', event => {
+        $('#form').modal('show');
+    })
+    window.addEventListener('hide-form', event => {
+        $('#form').modal('hide');
+    })
+</script>
+
 </body>
 </html>
