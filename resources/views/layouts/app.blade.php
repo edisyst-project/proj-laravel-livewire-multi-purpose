@@ -64,10 +64,33 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <livewire:scripts />
 <!-- Toastr scripts -->
 <script src="{{ asset('backend/plugins/toastr/toastr.min.js') }}"></script>
-<!-- Tempus Dominus styles -->
+<!-- Tempus Dominus scripts -->
 <script src="{{ asset('backend/plugins/moment/moment.min.js') }}"></script>
 <script src="{{ asset('backend/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+<!-- CK Editor scripts -->
+<script src="https://cdn.ckeditor.com/ckeditor5/31.0.0/classic/ckeditor.js"></script>
 
+
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#appointmentNote' ) )
+        .then( editor => {
+            console.log( editor );
+            editor.model.document.on('change:data', () =>{
+                // let note = $('#appointmentNote').data('appointment-note');
+                // // console.log($('#appointmentNote').val())
+                // // eval(note).set('state.note', $('#appointmentNote').val());
+                // eval(note).set('state.note', editor.getData());
+                document.querySelector('#appointmentSave').addEventListener('click', () => {
+                    let note = $('#appointmentNote').data('appointment-note');
+                    eval(note).set('state.note', editor.getData());
+                });
+            });
+        } )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
 
 <script>
     $(document).ready(function () {
