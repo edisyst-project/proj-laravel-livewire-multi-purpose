@@ -57,7 +57,7 @@
                                 <tbody>
                                     @forelse($users as $user)
                                         <tr>
-                                            <td>1</td>
+                                            <td>{{ $loop->iteration }}</td>
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
                                             <td>
@@ -80,7 +80,9 @@
                             </table>
                         </div>
                     </div>
-
+                    <div class="card-footer d-flex justify-content-center">
+                        {{ $users->links() }}
+                    </div>
                 </div>
                 <!-- /.col-md-12 -->
             </div>
