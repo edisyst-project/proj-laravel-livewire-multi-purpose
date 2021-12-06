@@ -64,7 +64,7 @@
                                                 <a href="#" wire:click.prevent="edit({{ $user }})">
                                                     <i class="fa fa-edit mr-2"></i>
                                                 </a>
-                                                <a href="#">
+                                                <a href="#" wire:click.prevent="confirmDelete({{ $user }})">
                                                     <i class="fa fa-trash text-danger"></i>
                                                 </a>
                                             </td>
@@ -155,6 +155,31 @@
         </div>
     </div>
     <!-- /.Modal -->
+
+    <!-- Modal Delete -->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog" role="document">
+            <form wire:submit.prevent="{{ $showEditModal ? 'updateUser' : 'storeUser' }}" autocomplete="off">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5>Delete user</h5>
+                    </div>
+                    <div class="modal-body">
+                        <h6>Are you sure you want to delete this user?</h6>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            <i class="fa fa-times mr-1"></i>Cancel
+                        </button>
+                        <button type="button" wire:click.prevent="deleteUser" class="btn btn-primary">
+                            <i class="fa fa-trash mr-1"></i>Delete user
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- /.Modal Delete -->
 
 
 </div>
