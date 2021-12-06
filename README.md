@@ -16,7 +16,8 @@ Da questo momento, per esempio per List-Users uso un livewire component
 
 
 ### TODO
-Cercare un sistema per le briciole di pane
+- ckeditor nel campo Note
+- Cercare un sistema per le briciole di pane
 
 
 

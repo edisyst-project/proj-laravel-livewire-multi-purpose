@@ -18,9 +18,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- Livewire styles -->
     <livewire:styles />
-
     <!-- Toastr styles -->
     <link href="{{ asset('backend/plugins/toastr/toastr.min.css') }}" rel="stylesheet"/>
+    <!-- Tempus Dominus styles -->
+    <link href="{{ asset('backend/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet"/>
 
 </head>
 <body class="hold-transition sidebar-mini">
@@ -63,13 +64,38 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <livewire:scripts />
 <!-- Toastr scripts -->
 <script src="{{ asset('backend/plugins/toastr/toastr.min.js') }}"></script>
+<!-- Tempus Dominus styles -->
+<script src="{{ asset('backend/plugins/moment/moment.min.js') }}"></script>
+<script src="{{ asset('backend/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+
 
 <script>
     $(document).ready(function () {
+        $('#appointmentDate').datetimepicker({
+            format: 'L'
+        });
+
+        $('#appointmentTime').datetimepicker({
+            format: 'LT'
+        });
+
+        $("#appointmentDate").on("change.datetimepicker", function (e) {
+            // $('#appointmentDate').datetimepicker('minDate', e.date);
+            let date = $(this).data('appointment-date');
+            // console.log(date);
+            eval(date).set('state.date', $('#appointmentDateInput').val());
+        });
+
+        $("#appointmentTime").on("change.datetimepicker", function (e) {
+            let time = $(this).data('appointment-time');
+            eval(time).set('state.time', $('#appointmentTimeInput').val());
+        });
+
         toastr.options = {
             "progressBar": true,
             "positionClass": "toast-bottom-right",
         }
+
         window.addEventListener('hide-form', event => {
             $('#form').modal('hide');
             toastr.success(event.detail.message, 'Success !!!');

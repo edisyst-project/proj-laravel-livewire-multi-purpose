@@ -22,5 +22,6 @@ Route::get('admin/dashboard', \App\Http\Controllers\Admin\DashboardController::c
 Route::get('admin/users', \App\Http\Livewire\Admin\Users\ListUsers::class)->name('admin.users');
 
 Route::get('admin/appointments', \App\Http\Livewire\Admin\Appointments\ListAppointments::class)->name('admin.appointments');
+Route::get('admin/appointments/create', \App\Http\Livewire\Admin\Appointments\CreateAppointmentForm::class)->name('admin.appointments.create');
 
 
