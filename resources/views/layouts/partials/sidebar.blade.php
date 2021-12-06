@@ -43,15 +43,15 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->is('admin.dashboard') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <a href="{{ route('admin.appointments') }}" class="nav-link {{ request()->is('admin/appointments') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-calendar-alt"></i>
                         <p>Appointments</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a href="{{ route('admin.users') }}" class="nav-link {{ request()->is('admin/users') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-user-alt"></i>
+                        <i class="nav-icon fas fa-users"></i>
                         <p>Users</p>
                     </a>
                 </li>

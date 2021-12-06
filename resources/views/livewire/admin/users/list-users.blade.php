@@ -57,14 +57,14 @@
                                 <tbody>
                                     @forelse($users as $user)
                                         <tr>
-                                            <td>1</td>
+                                            <td>{{ $loop->iteration }}</td>
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
                                             <td>
-                                                <a href="#">
+                                                <a href="#" wire:click.prevent="edit({{ $user }})">
                                                     <i class="fa fa-edit mr-2"></i>
                                                 </a>
-                                                <a href="#">
+                                                <a href="#" wire:click.prevent="confirmDelete({{ $user }})">
                                                     <i class="fa fa-trash text-danger"></i>
                                                 </a>
                                             </td>
@@ -80,7 +80,9 @@
                             </table>
                         </div>
                     </div>
-
+                    <div class="card-footer d-flex justify-content-center">
+                        {{ $users->links() }}
+                    </div>
                 </div>
                 <!-- /.col-md-12 -->
             </div>
@@ -98,9 +100,13 @@
     <div class="modal fade" id="form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form wire:submit.prevent="storeUser" autocomplete="off">
+                <form wire:submit.prevent="{{ $showEditModal ? 'updateUser' : 'storeUser' }}" autocomplete="off">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Add New User</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">
+                            @if ($showEditModal) <span>Edit User</span>
+                            @else <span>Add New User</span>
+                            @endif
+                        </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -139,14 +145,43 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times mr-1"></i>Cancel</button>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save mr-1"></i>
+                            @if ($showEditModal) <span>Update</span>
+                            @else <span>Save</span>
+                            @endif
+                        </button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
     <!-- /.Modal -->
+
+    <!-- Modal Delete -->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog" role="document">
+            <form wire:submit.prevent="{{ $showEditModal ? 'updateUser' : 'storeUser' }}" autocomplete="off">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5>Delete user</h5>
+                    </div>
+                    <div class="modal-body">
+                        <h6>Are you sure you want to delete this user?</h6>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            <i class="fa fa-times mr-1"></i>Cancel
+                        </button>
+                        <button type="button" wire:click.prevent="deleteUser" class="btn btn-primary">
+                            <i class="fa fa-trash mr-1"></i>Delete user
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- /.Modal Delete -->
 
 
 </div>

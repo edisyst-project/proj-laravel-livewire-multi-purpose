@@ -2,13 +2,16 @@
 
 namespace App\Http\Livewire\Admin\Users;
 
+use App\Http\Livewire\Admin\AdminComponent;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
-use Livewire\Component;
 
-class ListUsers extends Component
+class ListUsers extends AdminComponent
 {
     public $state = [];
+    public $showEditModal = false;
+    public $user;
+    public $userIdBeingRemoved = null;
 
 
     public function storeUser()
@@ -26,18 +29,70 @@ class ListUsers extends Component
         $this->dispatchBrowserEvent('hide-form', ['message' => 'User created successfully!']);
 
 //        session()->flash('message', 'User created successfully!'); //stò usando toastr, quindi non mi serve più
-
-        return redirect()->back();
     }
+
+
+    public function updateUser()
+    {
+        $data = Validator::make($this->state, [
+            'name'      => ['required'],
+//            'email'     => ['required', 'email', 'unique:users,email,' . $this->user->id],
+            'email'     => 'required|email|unique:users,email,' . $this->user->id,
+            'password'  => ['sometimes', 'confirmed'],
+        ])->validate();
+
+        if (!empty($data['password'])) {
+            $data['password'] = bcrypt($data['password']);
+        }
+
+        $this->user->update($data);
+
+        $this->dispatchBrowserEvent('hide-form', ['message' => 'User updated successfully!']);
+    }
+
+
+    public function deleteUser()
+    {
+        $user = User::findOrFail($this->userIdBeingRemoved);
+
+        $user->delete();
+
+        $this->dispatchBrowserEvent('hide-delete-modal', ['message' => 'User deleted successfully!']);
+    }
+
+
 
     public function addNew()
     {
+        $this->showEditModal = false;
+        $this->state = [];
+
         $this->dispatchBrowserEvent('show-form');
     }
 
+
+    public function edit(User $user)
+    {
+        $this->showEditModal = true;
+        $this->user = $user;
+        $this->state = $user->toArray();
+
+        $this->dispatchBrowserEvent('show-form');
+    }
+
+
+    public function confirmDelete(User $user)
+    {
+        $this->userIdBeingRemoved = $user->id;
+
+        $this->dispatchBrowserEvent('show-delete-modal');
+    }
+
+
     public function render()
     {
-        $users = User::latest()->paginate();
+        $users = User::latest()->paginate(5);
+
         return view('livewire.admin.users.list-users', compact('users'));
     }
 }
