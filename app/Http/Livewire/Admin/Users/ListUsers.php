@@ -9,6 +9,8 @@ use Livewire\Component;
 class ListUsers extends Component
 {
     public $state = [];
+    public $showEditModal = false;
+    public $user;
 
 
     public function storeUser()
@@ -26,18 +28,50 @@ class ListUsers extends Component
         $this->dispatchBrowserEvent('hide-form', ['message' => 'User created successfully!']);
 
 //        session()->flash('message', 'User created successfully!'); //stò usando toastr, quindi non mi serve più
-
-        return redirect()->back();
     }
+
+
+    public function updateUser()
+    {
+        $data = Validator::make($this->state, [
+            'name'      => ['required'],
+//            'email'     => ['required', 'email', 'unique:users,email,' . $this->user->id],
+            'email'     => 'required|email|unique:users,email,' . $this->user->id,
+            'password'  => ['sometimes', 'confirmed'],
+        ])->validate();
+
+        if (!empty($data['password'])) {
+            $data['password'] = bcrypt($data['password']);
+        }
+
+        $this->user->update($data);
+
+        $this->dispatchBrowserEvent('hide-form', ['message' => 'User updated successfully!']);
+    }
+
 
     public function addNew()
     {
+        $this->showEditModal = false;
+
         $this->dispatchBrowserEvent('show-form');
     }
+
+
+    public function edit(User $user)
+    {
+        $this->showEditModal = true;
+        $this->user = $user;
+        $this->state = $user->toArray();
+
+        $this->dispatchBrowserEvent('show-form');
+    }
+
 
     public function render()
     {
         $users = User::latest()->paginate();
+
         return view('livewire.admin.users.list-users', compact('users'));
     }
 }

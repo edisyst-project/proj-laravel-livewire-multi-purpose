@@ -51,7 +51,7 @@
 
                 <li class="nav-item">
                     <a href="{{ route('admin.users') }}" class="nav-link {{ request()->is('admin/users') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-user-alt"></i>
+                        <i class="nav-icon fas fa-users"></i>
                         <p>Users</p>
                     </a>
                 </li>
