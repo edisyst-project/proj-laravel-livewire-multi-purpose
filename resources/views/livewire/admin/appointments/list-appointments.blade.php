@@ -46,13 +46,13 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-{{--                                @forelse($users as $user)--}}
+                                @forelse($appointments as $appointment)
                                     <tr>
                                         <td>1</td>
-                                        <td>Gino Bramieri</td>
-                                        <td>20-05-2020</td>
-                                        <td>15:30</td>
-                                        <td>fermo</td>
+                                        <td>{{ $appointment->client_id }}</td>
+                                        <td>{{ $appointment->date }}</td>
+                                        <td>{{ $appointment->time }}</td>
+                                        <td>{{ $appointment->status }}</td>
                                         <td>
                                             <a href="#" wire:click.prevent="">
                                                 <i class="fa fa-edit mr-2"></i>
@@ -62,13 +62,13 @@
                                             </a>
                                         </td>
                                     </tr>
-{{--                                @empty--}}
+                                @empty
                                     <tr>
                                         <td colspan="4">
                                             <div class="alert alert-default-danger">No users</div>
                                         </td>
                                     </tr>
-{{--                                @endforelse--}}
+                                @endforelse
                                 </tbody>
                             </table>
                         </div>

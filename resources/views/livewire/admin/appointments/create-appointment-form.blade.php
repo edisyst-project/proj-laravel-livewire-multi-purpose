@@ -45,27 +45,58 @@
                                     </select>
                                 </div>
 
+                                <!-- COMPONENT Time Picker -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Appointment Start Time:</label>
+                                        <div class="input-group date" data-target-input="nearest">
+                                            <x-timepicker wire:model.defer="state.start_time" id="appointmentStartTime"></x-timepicker>
+                                            <div class="input-group-append" data-target="#appointmentStartTime" data-toggle="datetimepicker">
+                                                <div class="input-group-text"><i class="far fa-clock"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Appointment End Time:</label>
+                                        <div class="input-group date" data-target-input="nearest">
+                                            <x-timepicker wire:model.defer="state.end_time" id="appointmentEndTime"></x-timepicker>
+                                            <div class="input-group-append" data-target="#appointmentEndTime" data-toggle="datetimepicker">
+                                                <div class="input-group-text"><i class="far fa-clock"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <!-- Date -->
                                 <div class="form-group">
                                     <label>Appointment Date:</label>
-                                    <div wire:ignore class="input-group date" id="appointmentDate" data-target-input="nearest" data-appointment-date="@this">
-                                        <input type="text" class="form-control datetimepicker-input" data-target="#appointmentDate" id="appointmentDateInput">
+                                    <div class="input-group date" data-target-input="nearest">
+                                        <x-datepicker wire:model.defer="state.date" id="appointmentDate"></x-datepicker>
                                         <div class="input-group-append" data-target="#appointmentDate" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                         </div>
                                     </div>
                                 </div>
+{{--                                <div class="form-group">--}}
+{{--                                    <label>Appointment Date:</label>--}}
+{{--                                    <div wire:ignore class="input-group date" id="appointmentDate" data-target-input="nearest" data-appointment-date="@this">--}}
+{{--                                        <input type="text" class="form-control datetimepicker-input" data-target="#appointmentDate" id="appointmentDateInput">--}}
+{{--                                        <div class="input-group-append" data-target="#appointmentDate" data-toggle="datetimepicker">--}}
+{{--                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 
                                 <!-- Time Picker -->
-                                <div class="form-group">
-                                    <label>Appointment Time:</label>
-                                    <div wire:ignore class="input-group date" id="appointmentTime" data-target-input="nearest" data-appointment-time="@this">
-                                        <input type="text" class="form-control datetimepicker-input" data-target="#appointmentTime" id="appointmentTimeInput">
-                                        <div class="input-group-append" data-target="#appointmentTime" data-toggle="datetimepicker">
-                                            <div class="input-group-text"><i class="far fa-clock"></i></div>
-                                        </div>
-                                    </div>
-                                </div>
+{{--                                <div class="form-group">--}}
+{{--                                    <label>Appointment Time:</label>--}}
+{{--                                    <div wire:ignore class="input-group date" id="appointmentTime" data-target-input="nearest" data-appointment-time="@this">--}}
+{{--                                        <input type="text" class="form-control datetimepicker-input" data-target="#appointmentTime" id="appointmentTimeInput">--}}
+{{--                                        <div class="input-group-append" data-target="#appointmentTime" data-toggle="datetimepicker">--}}
+{{--                                            <div class="input-group-text"><i class="far fa-clock"></i></div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 
                                 <!-- Textarea Note -->
                                 <div class="form-group" wire:ignore>
@@ -87,5 +118,63 @@
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
-
 </div>
+
+
+
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#appointmentNote' ) )
+        .then( editor => {
+            console.log( editor );
+            editor.model.document.on('change:data', () =>{
+                // let note = $('#appointmentNote').data('appointment-note');
+                // // console.log($('#appointmentNote').val())
+                // // eval(note).set('state.note', $('#appointmentNote').val());
+                // eval(note).set('state.note', editor.getData());
+                document.querySelector('#appointmentSave').addEventListener('click', () => {
+                    let note = $('#appointmentNote').data('appointment-note');
+                    eval(note).set('state.note', editor.getData());
+                });
+            });
+        } )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
+
+@push('js')
+<script>
+    $(document).ready(function () {
+        // $('#appointmentDate').datetimepicker({
+        //     format: 'L'
+        // });
+        //
+        // $('#appointmentTime').datetimepicker({
+        //     format: 'LT'
+        // });
+        //
+        // $("#appointmentDate").on("change.datetimepicker", function (e) {
+        //     // $('#appointmentDate').datetimepicker('minDate', e.date);
+        //     let date = $(this).data('appointment-date');
+        //     // console.log(date);
+        //     eval(date).set('state.date', $('#appointmentDateInput').val());
+        // });
+        //
+        // $("#appointmentTime").on("change.datetimepicker", function (e) {
+        //     let time = $(this).data('appointment-time');
+        //     eval(time).set('state.time', $('#appointmentTimeInput').val());
+        // });
+
+        toastr.options = {
+            "progressBar": true,
+            "positionClass": "toast-bottom-right",
+        }
+
+        window.addEventListener('hide-form', event => {
+            $('#form').modal('hide');
+            toastr.success(event.detail.message, 'Success !!!');
+        })
+    })
+</script>
+@endpush

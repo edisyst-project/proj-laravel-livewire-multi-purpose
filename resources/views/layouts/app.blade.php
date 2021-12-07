@@ -70,61 +70,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- CK Editor scripts -->
 <script src="https://cdn.ckeditor.com/ckeditor5/31.0.0/classic/ckeditor.js"></script>
 
+@stack('js')
 
-<script>
-    ClassicEditor
-        .create( document.querySelector( '#appointmentNote' ) )
-        .then( editor => {
-            console.log( editor );
-            editor.model.document.on('change:data', () =>{
-                // let note = $('#appointmentNote').data('appointment-note');
-                // // console.log($('#appointmentNote').val())
-                // // eval(note).set('state.note', $('#appointmentNote').val());
-                // eval(note).set('state.note', editor.getData());
-                document.querySelector('#appointmentSave').addEventListener('click', () => {
-                    let note = $('#appointmentNote').data('appointment-note');
-                    eval(note).set('state.note', editor.getData());
-                });
-            });
-        } )
-        .catch( error => {
-            console.error( error );
-        } );
-</script>
-
-<script>
-    $(document).ready(function () {
-        $('#appointmentDate').datetimepicker({
-            format: 'L'
-        });
-
-        $('#appointmentTime').datetimepicker({
-            format: 'LT'
-        });
-
-        $("#appointmentDate").on("change.datetimepicker", function (e) {
-            // $('#appointmentDate').datetimepicker('minDate', e.date);
-            let date = $(this).data('appointment-date');
-            // console.log(date);
-            eval(date).set('state.date', $('#appointmentDateInput').val());
-        });
-
-        $("#appointmentTime").on("change.datetimepicker", function (e) {
-            let time = $(this).data('appointment-time');
-            eval(time).set('state.time', $('#appointmentTimeInput').val());
-        });
-
-        toastr.options = {
-            "progressBar": true,
-            "positionClass": "toast-bottom-right",
-        }
-
-        window.addEventListener('hide-form', event => {
-            $('#form').modal('hide');
-            toastr.success(event.detail.message, 'Success !!!');
-        })
-    })
-</script>
 
 <script>
     window.addEventListener('show-form', event => {
