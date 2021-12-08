@@ -14,7 +14,9 @@ class ListAppointments extends AdminComponent
 
     public function render()
     {
-        $appointments = Appointment::all();
+        $appointments = Appointment::with('client')
+            ->latest()
+            ->paginate();
 
         return view('livewire.admin.appointments.list-appointments', [
             'appointments' => $appointments
