@@ -48,11 +48,13 @@
                                 <tbody>
                                 @forelse($appointments as $appointment)
                                     <tr>
-                                        <td>1</td>
-                                        <td>{{ $appointment->client_id }}</td>
-                                        <td>{{ $appointment->date }}</td>
-                                        <td>{{ $appointment->time }}</td>
-                                        <td>{{ $appointment->status }}</td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $appointment->client->name }}</td>
+                                        <td>{{ $appointment->date->toFormattedDate() }}</td>
+                                        <td>{{ $appointment->time->toFormattedTime() }}</td>
+                                        <td>
+                                            <span class="badge badge-{{ $appointment->status_badge }}">{{ $appointment->status }}</span>
+                                        </td>
                                         <td>
                                             <a href="#" wire:click.prevent="">
                                                 <i class="fa fa-edit mr-2"></i>
@@ -64,8 +66,8 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="4">
-                                            <div class="alert alert-default-danger">No users</div>
+                                        <td colspan="6">
+                                            <div class="alert alert-default-danger text-bold">NO APPOINTMENTS YET</div>
                                         </td>
                                     </tr>
                                 @endforelse
