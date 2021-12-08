@@ -23,5 +23,6 @@ Route::get('admin/users', \App\Http\Livewire\Admin\Users\ListUsers::class)->name
 
 Route::get('admin/appointments', \App\Http\Livewire\Admin\Appointments\ListAppointments::class)->name('admin.appointments');
 Route::get('admin/appointments/create', \App\Http\Livewire\Admin\Appointments\CreateAppointmentForm::class)->name('admin.appointments.create');
+Route::get('admin/appointments/{appointment}/edit', \App\Http\Livewire\Admin\Appointments\UpdateAppointmentForm::class)->name('admin.appointments.edit');
 
 

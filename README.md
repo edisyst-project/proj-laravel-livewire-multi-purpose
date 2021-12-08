@@ -16,8 +16,8 @@ Da questo momento, per esempio per List-Users uso un livewire component
 
 
 ### TODO
-- ckeditor nel campo Note
 - Cercare un sistema per le briciole di pane
+- Secondo me c'è qualche problema in create/edit appointment nel caso non tutti i campi siano settati sul form
 
 
 
