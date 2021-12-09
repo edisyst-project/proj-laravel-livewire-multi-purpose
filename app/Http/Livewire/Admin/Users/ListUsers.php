@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin\Users;
 
 use App\Http\Livewire\Admin\AdminComponent;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Livewire\WithFileUploads;
 
@@ -55,6 +56,7 @@ class ListUsers extends AdminComponent
         }
 
         if ($this->photo){
+            Storage::disk('avatars')->delete($this->user->avatar);
             $data['avatar'] = $this->photo->store('/', 'avatars');
         }
 
