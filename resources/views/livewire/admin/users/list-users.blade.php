@@ -37,11 +37,11 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="d-flex justify-content-end mb-2">
+                    <div class="d-flex justify-content-between mb-2">
                         <button wire:click.prevent="addNew" class="btn btn-primary">
-                            <i class="fa fa-plus-circle mr-1"></i>
-                            Add New User
+                            <i class="fa fa-plus-circle mr-1"></i>Add New User
                         </button>
+                        <x-search-input wire:model="searchTerm"></x-search-input>
                     </div>
                     <div class="card">
                         <div class="card-body">
@@ -55,11 +55,15 @@
                                     <th scope="col">Options</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody wire:loading.class="text-muted">
                                     @forelse($users as $user)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $user->name }}</td>
+                                            <td>
+                                                <img style="width: 50px;" class="img img-circle mr-1"
+                                                     src="{{ $user->avatar_url }}" />
+                                                {{ $user->name }}
+                                            </td>
                                             <td>{{ $user->email }}</td>
                                             <td>{{ $user->created_at->toFormattedDate() }}</td>
                                             <td>
@@ -73,8 +77,11 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="4">
-                                                <div class="alert alert-default-danger">No users</div>
+                                            <td colspan="5">
+                                                <div class="alert alert-default-danger text-center">
+                                                    <img src="https://cdn-icons-png.flaticon.com/512/1178/1178479.png" alt="No results" height="50" />
+                                                    <strong>No users found</strong>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforelse
@@ -145,6 +152,24 @@
                             <label for="password_confirmation">Password Confirmation</label>
                             <input type="password" class="form-control" id="password_confirmation" wire:model.defer="state.password_confirmation" placeholder="Password Confirmation">
                         </div>
+
+                        <div class="form-group">
+                            <label for="customFile">Profile Photo</label>
+                            @if ($photo)
+                                <img src="{{ $photo->temporaryUrl() }}"  style="width: 50px;" class="img img-circle d-block mb-2" />
+                            @else
+                                <img src="{{ $state['avatar_url'] ?? ''}}" style="width: 50px;" class="img img-circle d-block mb-2" />
+                            @endif
+                            <div class="custom-file">
+                                <input wire:model.defer="photo" type="file" class="custom-file-input" id="customFile">
+                                <label class="custom-file-label" for="customFile">
+                                    @if ($photo) {{ $photo->getClientOriginalName() }}
+                                    @else Choose your profile image
+                                    @endif
+                                </label>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times mr-1"></i>Cancel</button>

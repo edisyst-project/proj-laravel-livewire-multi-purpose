@@ -16,12 +16,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('backend/dist/css/adminlte.min.css') }}">
 
-    <!-- Livewire styles -->
-    <livewire:styles />
     <!-- Toastr styles -->
     <link href="{{ asset('backend/plugins/toastr/toastr.min.css') }}" rel="stylesheet"/>
     <!-- Tempus Dominus styles -->
     <link href="{{ asset('backend/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet"/>
+
+    <!-- Livewire styles -->
+    <livewire:styles />
+
+    <!-- LoadAwesome styles -->
+{{--    <link href="{{ asset('css/loadawesome.css') }}" rel="stylesheet"/>--}}
+
+
+    @stack('styles')
+
 
 </head>
 <body class="hold-transition sidebar-mini">
@@ -69,6 +77,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{ asset('backend/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
 <!-- CK Editor scripts -->
 <script src="https://cdn.ckeditor.com/ckeditor5/31.0.0/classic/ckeditor.js"></script>
+
 
 @stack('js')
 

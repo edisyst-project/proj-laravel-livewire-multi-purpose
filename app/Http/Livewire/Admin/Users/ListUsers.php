@@ -5,13 +5,18 @@ namespace App\Http\Livewire\Admin\Users;
 use App\Http\Livewire\Admin\AdminComponent;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
+use Livewire\WithFileUploads;
 
 class ListUsers extends AdminComponent
 {
+    use WithFileUploads;
+
     public $state = [];
     public $showEditModal = false;
     public $user;
     public $userIdBeingRemoved = null;
+    public $searchTerm = null;
+    public $photo;
 
 
     public function storeUser()
@@ -23,6 +28,10 @@ class ListUsers extends AdminComponent
         ])->validate();
 
         $data['password'] = bcrypt($data['password']);
+
+        if ($this->photo){
+            $data['avatar'] = $this->photo->store('/', 'avatars');
+        }
 
         User::create($data);
 
@@ -45,6 +54,10 @@ class ListUsers extends AdminComponent
             $data['password'] = bcrypt($data['password']);
         }
 
+        if ($this->photo){
+            $data['avatar'] = $this->photo->store('/', 'avatars');
+        }
+
         $this->user->update($data);
 
         $this->dispatchBrowserEvent('hide-form', ['message' => 'User updated successfully!']);
@@ -64,8 +77,8 @@ class ListUsers extends AdminComponent
 
     public function addNew()
     {
+        $this->reset();
         $this->showEditModal = false;
-        $this->state = [];
 
         $this->dispatchBrowserEvent('show-form');
     }
@@ -73,6 +86,7 @@ class ListUsers extends AdminComponent
 
     public function edit(User $user)
     {
+        $this->reset();
         $this->showEditModal = true;
         $this->user = $user;
         $this->state = $user->toArray();
@@ -91,7 +105,11 @@ class ListUsers extends AdminComponent
 
     public function render()
     {
-        $users = User::latest()->paginate(5);
+        $users = User::query()
+            ->where('name', 'like', '%' .$this->searchTerm. '%')
+            ->orWhere('email', 'like', '%' .$this->searchTerm. '%')
+            ->latest()
+            ->paginate(5);
 
         return view('livewire.admin.users.list-users', compact('users'));
     }
