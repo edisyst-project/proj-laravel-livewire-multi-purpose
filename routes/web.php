@@ -18,17 +18,4 @@ Route::get('/', function () {
 });
 
 
-Route::group(['middleware' => 'auth'], function (){
-    Route::get('admin/dashboard', \App\Http\Controllers\Admin\DashboardController::class)->name('admin.dashboard');
-});
-
-
-Route::get('admin/users', \App\Http\Livewire\Admin\Users\ListUsers::class)->name('admin.users');
-
-Route::get('admin/appointments', \App\Http\Livewire\Admin\Appointments\ListAppointments::class)->name('admin.appointments');
-Route::get('admin/appointments/create', \App\Http\Livewire\Admin\Appointments\CreateAppointmentForm::class)->name('admin.appointments.create');
-Route::get('admin/appointments/{appointment}/edit', \App\Http\Livewire\Admin\Appointments\UpdateAppointmentForm::class)->name('admin.appointments.edit');
-
-
-
 
