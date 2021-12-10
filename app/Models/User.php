@@ -51,7 +51,7 @@ class User extends Authenticatable
         'avatar_url'
     ];
 
-    public function getAvatarUrlAttribute()
+    public function getAvatarUrlAttribute() // avatar_url
     {
         if ($this->avatar && Storage::disk('avatars')->exists($this->avatar)){
             return Storage::disk('avatars')->url($this->avatar);

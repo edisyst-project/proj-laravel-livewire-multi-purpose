@@ -20,6 +20,20 @@ Da questo momento, per esempio per List-Users uso un livewire component
 - [x] https://labs.danielcardoso.net/load-awesome/
 - [x] https://github.com/alpinejs/alpine
 
+### AUTH Fortify
+
+`composer require laravel/fortify`
+
+Credenziali: admin@admin.com - admin
+
+
+
+
+
+
+
+
+
 ### TODO
 - Cercare un sistema per le briciole di pane
 - Secondo me c'è qualche problema in create/edit appointment nel caso non tutti i campi siano settati sul form
