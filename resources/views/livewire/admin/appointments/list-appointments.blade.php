@@ -1,4 +1,5 @@
 <div>
+    <x-loading-indicator />
 
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -32,6 +33,24 @@
                             </button>
                         </a>
 
+                        @if ($selectedRows)
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default">Bulk Action</button>
+                                <button type="button" class="btn btn-default dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <div class="dropdown-menu" role="menu" style="">
+                                    <a wire:click.prevent="markAllAsScheduled" class="dropdown-item" href="#">Mark as Scheduled</a>
+                                    <a wire:click.prevent="markAllAsClosed" class="dropdown-item" href="#">Mark as Closed</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a wire:click.prevent="deleteSelectedRows" class="dropdown-item" href="#">Delete Selected</a>
+                                </div>
+                                <span class="ml-4">
+                                    Selected {{ count($selectedRows) }} {{ \Illuminate\Support\Str::plural('appointment', count($selectedRows)) }}
+                                </span>
+                            </div>
+                        @endif
+
                         <div class="btn-group">
                             <button wire:click="filterAppointmentByStatus" type="button"
                                     class="btn {{ is_null($status) ? 'btn-secondary' : 'btn-default' }}">
@@ -56,6 +75,12 @@
                             <table class="table table-hover">
                                 <thead>
                                 <tr>
+                                    <th scope="col">
+                                        <div class="icheck-primary d-inline ml-2">
+                                            <input wire:model="selectPageRows" type="checkbox" id="todoCheck2" value="">
+                                            <label for="todoCheck2"></label>
+                                        </div>
+                                    </th>
                                     <th scope="col">#</th>
                                     <th scope="col">Client Name</th>
                                     <th scope="col">Date</th>
@@ -67,6 +92,12 @@
                                 <tbody>
                                 @forelse($appointments as $appointment)
                                     <tr>
+                                        <td>
+                                            <div class="icheck-primary d-inline ml-2">
+                                                <input wire:model="selectedRows" type="checkbox" value="{{ $appointment->id }}" id="{{ $appointment->id }}">
+                                                <label for="{{ $appointment->id }}"></label>
+                                            </div>
+                                        </td>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $appointment->client->name }}</td>
                                         <td>{{ $appointment->date }}</td>
@@ -92,6 +123,8 @@
                                 @endforelse
                                 </tbody>
                             </table>
+{{--                            @dump($selectedRows)--}}
+{{--                            @dump($selectPageRows)--}}
                         </div>
                     </div>
                     <div class="card-footer d-flex justify-content-center">
@@ -105,11 +138,8 @@
     </div>
     <!-- /.content -->
 
-    <x-confirmation-alert></x-confirmation-alert>
-
-
+    <x-confirmation-alert />
 
 
 </div>
-
 

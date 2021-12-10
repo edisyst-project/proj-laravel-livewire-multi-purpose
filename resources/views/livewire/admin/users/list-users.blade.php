@@ -105,7 +105,7 @@
 {{--        Launch demo modal--}}
 {{--    </button>--}}
 
-    <!-- Modal -->
+    <!-- Modal create user -->
     <div class="modal fade" id="form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -141,7 +141,9 @@
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" wire:model.defer="state.password" placeholder="Password">
+                            <input type="password" class="form-control @error('password') is-invalid @enderror" id="password"
+                                   wire:model.defer="state.password" placeholder="Password"
+                            >
                             @error('password')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -150,24 +152,41 @@
                         </div>
                         <div class="form-group">
                             <label for="password_confirmation">Password Confirmation</label>
-                            <input type="password" class="form-control" id="password_confirmation" wire:model.defer="state.password_confirmation" placeholder="Password Confirmation">
+                            <input type="password" class="form-control" id="password_confirmation"
+                                   wire:model.defer="state.password_confirmation" placeholder="Password Confirmation"
+                            >
                         </div>
 
                         <div class="form-group">
                             <label for="customFile">Profile Photo</label>
-                            @if ($photo)
-                                <img src="{{ $photo->temporaryUrl() }}"  style="width: 50px;" class="img img-circle d-block mb-2" />
-                            @else
-                                <img src="{{ $state['avatar_url'] ?? ''}}" style="width: 50px;" class="img img-circle d-block mb-2" />
-                            @endif
                             <div class="custom-file">
-                                <input wire:model.defer="photo" type="file" class="custom-file-input" id="customFile">
+                                <div x-data="{ isUploading: false, progress: 5 }"
+                                     x-on:livewire-upload-start="isUploading = true"
+                                     x-on:livewire-upload-finish="isUploading = false; progress = 5"
+                                     x-on:livewire-upload-error="isUploading = false"
+                                     x-on:livewire-upload-progress="progress = $event.detail.progress"
+                                >
+                                    <input wire:model.defer="photo" type="file" class="custom-file-input" id="customFile">
+                                    <div x-show.transition="isUploading" class="progress progress-sm mt-2 rounded">
+                                        <div class="progress-bar bg-primary progress-bar-striped" role="progressbar"
+                                             aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
+                                             x-bind:style="`width: ${progress}%`"
+                                        >
+                                            <span class="sr-only">40% Complete (success)</span>
+                                        </div>
+                                    </div>
+                                </div>
                                 <label class="custom-file-label" for="customFile">
                                     @if ($photo) {{ $photo->getClientOriginalName() }}
                                     @else Choose your profile image
                                     @endif
                                 </label>
                             </div>
+                            @if ($photo)
+                                <img src="{{ $photo->temporaryUrl() }}" class="img img-circle d-block mt-2 w-50" />
+                            @else
+                                <img src="{{ $state['avatar_url'] ?? ''}}" class="img img-circle d-block mt-2 w-50" />
+                            @endif
                         </div>
 
                     </div>
@@ -183,10 +202,13 @@
             </div>
         </div>
     </div>
-    <!-- /.Modal -->
+    <!-- /.Modal create -->
 
-    <!-- Modal Delete -->
-    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>
+    <!-- Modal Delete user -->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel" aria-hidden="true"
+         wire:ignore.self
+    >
         <div class="modal-dialog" role="document">
             <form wire:submit.prevent="{{ $showEditModal ? 'updateUser' : 'storeUser' }}" autocomplete="off">
                 <div class="modal-content">

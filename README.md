@@ -18,6 +18,7 @@ Da questo momento, per esempio per List-Users uso un livewire component
 - [x] https://sweetalert2.github.io/#examples
 - [ ] https://undraw.co/search
 - [x] https://labs.danielcardoso.net/load-awesome/
+- [x] https://github.com/alpinejs/alpine
 
 ### TODO
 - Cercare un sistema per le briciole di pane
