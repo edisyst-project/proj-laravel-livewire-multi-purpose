@@ -52,6 +52,7 @@
                                     <th scope="col">Name</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Registration date</th>
+                                    <th scope="col">Role</th>
                                     <th scope="col">Options</th>
                                 </tr>
                                 </thead>
@@ -66,6 +67,12 @@
                                             </td>
                                             <td>{{ $user->email }}</td>
                                             <td>{{ $user->created_at->toFormattedDate() }}</td>
+                                            <td>
+                                                <select class="form-control" wire:change="changeRole({{ $user }}, $event.target.value)">
+                                                    <option value="admin" {{ ($user->role === 'admin') ? 'selected' : '' }}>ADMIN</option>
+                                                    <option value="user"  {{ ($user->role === 'user')  ? 'selected' : '' }}>USER</option>
+                                                </select>
+                                            </td>
                                             <td>
                                                 <a href="#" wire:click.prevent="edit({{ $user }})">
                                                     <i class="fa fa-edit mr-2"></i>
