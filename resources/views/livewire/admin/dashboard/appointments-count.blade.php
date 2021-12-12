@@ -4,7 +4,7 @@
         <div class="inner">
             <div class="d-flex justify-content-between">
                 <h3  wire:loading.remove>{{ $appointmentsCount }}</h3>
-                <div wire:loading>
+                <div wire:loading.delay>
                     <x-animations.ballbeat />
                 </div>
                 <select wire:change="getAppointmentsCount($event.target.value)" class="px-1 rounded border-0" style="height: 2rem; outline: 2px solid transparent">
