@@ -22,18 +22,12 @@
         <div class="content">
             <div class="container-fluid">
 
-
-
                 <div class="row">
                     <livewire:admin.dashboard.appointments-count />
+                    <livewire:admin.dashboard.users-count />
                 </div>
-                <!-- /.row -->
 
-
-
-
-
-            </div><!-- /.container-fluid -->
+            </div>
         </div>
         <!-- /.content -->
     </div>
