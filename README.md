@@ -14,6 +14,10 @@ Uso BladeComponentServiceProvider per non usare le section di Blade, bensì i co
 
 Da questo momento, per esempio per List-Users uso un livewire component
 
+    pa make:livewire admin/profile/update-profile
+
+I components normali di blade invece li creo a mano dentro view/components
+
 ### External PKGS
 - [x] https://sweetalert2.github.io/#examples
 - [ ] https://undraw.co/search
