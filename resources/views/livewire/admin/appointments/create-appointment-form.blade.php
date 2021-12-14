@@ -1,5 +1,7 @@
 <div>
 
+    @this
+
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
@@ -75,7 +77,7 @@
 
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="form-group">
+                                        <div wire:ignore class="form-group">
                                             <label>Select Team Members</label>
                                             <select class="select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
                                                 <option>Alabama</option>
@@ -199,5 +201,14 @@
 </script>
 
 @push('js')
-
+    <script>
+        $(document).ready(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2({
+                theme: 'bootstrap4'
+            }).on('change', function () {
+            @this.set('state.members', $(this).val()); // @this è di Livewire
+            });
+        });
+    </script>
 @endpush

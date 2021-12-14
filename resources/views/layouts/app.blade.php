@@ -95,11 +95,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <script>
     $(document).ready(function () {
-        //Initialize Select2 Elements
-        $('.select2').select2({
-            theme: 'bootstrap4'
-        });
-
         // $('#appointmentDate').datetimepicker({
         //     format: 'L'
         // });
