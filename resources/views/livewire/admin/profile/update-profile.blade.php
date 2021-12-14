@@ -40,10 +40,9 @@
                                    "
                             /> {{--SI ATTIVA SE CLICCO SU $refs.image--}}
                             <img
-                            x-on:click="$refs.image.click()"
-                            x-bind:src="imagePreview ? imagePreview : '{{ auth()->user()->avatar_url }}'"
-                            class="profile-user-img img-circle"
-                            alt="User profile picture">
+                                x-on:click="$refs.image.click()"
+                                x-bind:src="imagePreview ? imagePreview : '{{ auth()->user()->avatar_url }}'"
+                                class="profile-user-img img-circle" alt="User profile picture">
                         </div>
 
                         <h3 class="profile-username text-center">Nina Mcintire</h3>
@@ -116,7 +115,7 @@
 
 @push('styles')
     <style>
-        .profile-user-img {
+        .profile-user-img:hover {
             background-color: blue;
             cursor: pointer;
         }

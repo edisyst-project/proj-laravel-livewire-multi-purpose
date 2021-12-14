@@ -22,6 +22,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link href="{{ asset('backend/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet"/>
     <!-- iCheck styles (AdminLTE) -->
     <link rel="stylesheet" href="{{ asset('backend/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{ asset('backend/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('backend/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 
     <!-- Livewire styles -->
     <livewire:styles />
@@ -70,8 +73,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- AdminLTE App -->
 <script src="{{ asset('backend/dist/js/adminlte.min.js') }}"></script>
 
-<!-- Livewire scripts -->
-<livewire:scripts />
 <!-- Toastr scripts -->
 <script src="{{ asset('backend/plugins/toastr/toastr.min.js') }}"></script>
 <!-- Tempus Dominus scripts -->
@@ -81,9 +82,55 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="https://cdn.ckeditor.com/ckeditor5/31.0.0/classic/ckeditor.js"></script>
 <!-- Alpine JS scripts -->
 <script defer src="https://unpkg.com/alpinejs@3.7.0/dist/cdn.min.js"></script>
+<!-- Select2 -->
+<script src="{{ asset('backend/plugins/select2/js/select2.full.min.js') }}"></script>
+
+
+<!-- Livewire scripts -->
+<livewire:scripts />
 
 
 @stack('js')
+
+
+<script>
+    $(document).ready(function () {
+        //Initialize Select2 Elements
+        $('.select2').select2({
+            theme: 'bootstrap4'
+        });
+
+        // $('#appointmentDate').datetimepicker({
+        //     format: 'L'
+        // });
+        //
+        // $('#appointmentTime').datetimepicker({
+        //     format: 'LT'
+        // });
+        //
+        // $("#appointmentDate").on("change.datetimepicker", function (e) {
+        //     // $('#appointmentDate').datetimepicker('minDate', e.date);
+        //     let date = $(this).data('appointment-date');
+        //     // console.log(date);
+        //     eval(date).set('state.date', $('#appointmentDateInput').val());
+        // });
+        //
+        // $("#appointmentTime").on("change.datetimepicker", function (e) {
+        //     let time = $(this).data('appointment-time');
+        //     eval(time).set('state.time', $('#appointmentTimeInput').val());
+        // });
+
+        toastr.options = {
+            "progressBar": true,
+            "positionClass": "toast-bottom-right",
+        }
+
+        window.addEventListener('hide-form', event => {
+            $('#form').modal('hide');
+            toastr.success(event.detail.message, 'Success !!!');
+        })
+    })
+</script>
 
 
 <script>

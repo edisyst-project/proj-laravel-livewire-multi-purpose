@@ -73,6 +73,23 @@
                                     </div>
                                 </div>
 
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Select Team Members</label>
+                                            <select class="select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
+                                                <option>Alabama</option>
+                                                <option>Alaska</option>
+                                                <option>California</option>
+                                                <option>Delaware</option>
+                                                <option>Tennessee</option>
+                                                <option>Texas</option>
+                                                <option>Washington</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <!-- COMPONENT Time Picker -->
 {{--                                <div class="row">--}}
 {{--                                    <div class="col-md-6">--}}
@@ -182,37 +199,5 @@
 </script>
 
 @push('js')
-<script>
-    $(document).ready(function () {
-        // $('#appointmentDate').datetimepicker({
-        //     format: 'L'
-        // });
-        //
-        // $('#appointmentTime').datetimepicker({
-        //     format: 'LT'
-        // });
-        //
-        // $("#appointmentDate").on("change.datetimepicker", function (e) {
-        //     // $('#appointmentDate').datetimepicker('minDate', e.date);
-        //     let date = $(this).data('appointment-date');
-        //     // console.log(date);
-        //     eval(date).set('state.date', $('#appointmentDateInput').val());
-        // });
-        //
-        // $("#appointmentTime").on("change.datetimepicker", function (e) {
-        //     let time = $(this).data('appointment-time');
-        //     eval(time).set('state.time', $('#appointmentTimeInput').val());
-        // });
 
-        toastr.options = {
-            "progressBar": true,
-            "positionClass": "toast-bottom-right",
-        }
-
-        window.addEventListener('hide-form', event => {
-            $('#form').modal('hide');
-            toastr.success(event.detail.message, 'Success !!!');
-        })
-    })
-</script>
 @endpush
