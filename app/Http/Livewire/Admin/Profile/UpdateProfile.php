@@ -16,8 +16,6 @@ class UpdateProfile extends Component
 
     public function updatedImage()
     {
-//        dd('ciao');
-
         $previousPath = auth()->user()->avatar;
 //        dd($previousPath);
 
