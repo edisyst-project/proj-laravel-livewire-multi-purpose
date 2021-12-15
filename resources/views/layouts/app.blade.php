@@ -22,21 +22,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link href="{{ asset('backend/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet"/>
     <!-- iCheck styles (AdminLTE) -->
     <link rel="stylesheet" href="{{ asset('backend/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
-    <!-- Select2 -->
-    <link rel="stylesheet" href="{{ asset('backend/plugins/select2/css/select2.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('backend/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
-
-    <!-- Livewire styles -->
-    <livewire:styles />
-
     <!-- LoadAwesome styles -->
 {{--    <link href="{{ asset('css/loadawesome.css') }}" rel="stylesheet"/>--}}
 
 
     @stack('styles')
 
+    <!-- Livewire styles -->
+    <livewire:styles />
 
 </head>
+
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
 
@@ -80,8 +76,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{ asset('backend/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
 <!-- Alpine JS scripts -->
 <script defer src="https://unpkg.com/alpinejs@3.7.0/dist/cdn.min.js"></script>
-<!-- Select2 -->
-<script src="{{ asset('backend/plugins/select2/js/select2.full.min.js') }}"></script>
 
 
 <!-- Livewire scripts -->

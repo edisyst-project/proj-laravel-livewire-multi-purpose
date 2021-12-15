@@ -12,6 +12,7 @@ class UpdateProfile extends Component
     use WithFileUploads;
 
     public $image;
+    public $state = [];
 
 
     public function updatedImage()

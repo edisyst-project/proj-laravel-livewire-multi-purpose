@@ -56,10 +56,11 @@
                                             @enderror
                                         </div>
                                     </div>
+
                                     <div class="col-md-6">
-                                        <div wire:ignore class="form-group">
+                                        <div class="form-group">
                                             <label>Select Team Members</label>
-                                            <select class="select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
+                                            <x-inputs.select2 wire:model="state.members" fake="here" id="members" placeholder="Select members">
                                                 <option>Alabama</option>
                                                 <option>Alaska</option>
                                                 <option>California</option>
@@ -67,9 +68,26 @@
                                                 <option>Tennessee</option>
                                                 <option>Texas</option>
                                                 <option>Washington</option>
-                                            </select>
+                                            </x-inputs.select2>
                                         </div>
                                     </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Select Others</label>
+                                            <x-inputs.select2 wire:model="state.others" id="others" placeholder="Select others">
+                                                <option>Alabama</option>
+                                                <option>Alaska</option>
+                                                <option>California</option>
+                                                <option>Delaware</option>
+                                                <option>Tennessee</option>
+                                                <option>Texas</option>
+                                                <option>Washington</option>
+                                            </x-inputs.select2>
+                                        </div>
+                                    </div>
+
+
                                 </div>
 
                                 <!-- COMPONENT Time Picker -->
@@ -180,16 +198,6 @@
 
 
 @push('js')
-    <script>
-        $(document).ready(function () {
-            //Initialize Select2 Elements
-            $('.select2').select2({
-                theme: 'bootstrap4'
-            }).on('change', function () {
-            @this.set('state.members', $(this).val()); // @this è di Livewire
-            });
-        });
-    </script>
 
 
     <!-- CK Editor scripts -->

@@ -28,7 +28,7 @@
                         <div class="card-body box-profile">
                             <div class="text-center" x-data="{ imagePreview: '{{ auth()->user()->avatar_url }}' }">
                                 <input type="file"
-                                       {{--                                   class="d-none"--}}
+                                       class="d-none"
                                        wire:model="image"
                                        x-ref="image"
                                        x-on:change="
@@ -91,6 +91,20 @@
                                             <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                                             <div class="col-sm-10">
                                                 <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="inputEmail" class="col-sm-2 col-form-label">Team Members</label>
+                                            <div class="col-sm-10">
+                                                <x-inputs.select2 wire:model="state.members" fake="here" id="members" placeholder="Select members">
+                                                    <option>Alabama</option>
+                                                    <option>Alaska</option>
+                                                    <option>California</option>
+                                                    <option>Delaware</option>
+                                                    <option>Tennessee</option>
+                                                    <option>Texas</option>
+                                                    <option>Washington</option>
+                                                </x-inputs.select2>
                                             </div>
                                         </div>
                                         <div class="form-group row">
