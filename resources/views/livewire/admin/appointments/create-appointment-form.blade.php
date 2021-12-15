@@ -42,7 +42,7 @@
                                         <div class="form-group">
                                             <label>Client:</label>
                                             <select wire:model.defer="state.client_id"
-                                                    class="form-control select2 select2-hidden-accessible @error('client_id') is-invalid @enderror"
+                                                    class="form-control select2  @error('client_id') is-invalid @enderror"
                                                     style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
                                                 <option value="">---Select client---</option>
                                                 @foreach($clients as $client)
@@ -56,26 +56,6 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Status:</label>
-                                            <select wire:model.defer="state.status"
-                                                    class="form-control select2 select2-hidden-accessible @error('status') is-invalid @enderror"
-                                                    style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
-                                                <option value="">---Select status---</option>
-                                                <option value="SCHEDULED">Scheduled</option>
-                                                <option value="CLOSED">Closed</option>
-                                            </select>
-                                            @error('status')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
                                     <div class="col-md-6">
                                         <div wire:ignore class="form-group">
                                             <label>Select Team Members</label>
@@ -160,6 +140,27 @@
                                     <label>Note:</label>
                                     <textarea  id="appointmentNote" data-appointment-note="@this" class="form-control" rows="3" placeholder="Enter ..."></textarea>
                                 </div>
+
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Status:</label>
+                                            <select wire:model.defer="state.status"
+                                                    class="form-control select2  @error('status') is-invalid @enderror"
+                                                    style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
+                                                <option value="">---Select status---</option>
+                                                <option value="SCHEDULED">Scheduled</option>
+                                                <option value="CLOSED">Closed</option>
+                                            </select>
+                                            @error('status')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="card-footer">
@@ -178,28 +179,6 @@
 </div>
 
 
-
-<script>
-    ClassicEditor
-        .create( document.querySelector( '#appointmentNote' ) )
-        .then( editor => {
-            console.log( editor );
-            editor.model.document.on('change:data', () =>{
-                // let note = $('#appointmentNote').data('appointment-note');
-                // // console.log($('#appointmentNote').val())
-                // // eval(note).set('state.note', $('#appointmentNote').val());
-                // eval(note).set('state.note', editor.getData());
-                document.querySelector('#appointmentSave').addEventListener('click', () => {
-                    let note = $('#appointmentNote').data('appointment-note');
-                    eval(note).set('state.note', editor.getData());
-                });
-            });
-        } )
-        .catch( error => {
-            console.error( error );
-        } );
-</script>
-
 @push('js')
     <script>
         $(document).ready(function () {
@@ -211,4 +190,29 @@
             });
         });
     </script>
+
+
+    <!-- CK Editor scripts -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/31.0.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#appointmentNote' ) )
+            .then( editor => {
+                console.log( editor );
+                editor.model.document.on('change:data', () =>{
+                    // let note = $('#appointmentNote').data('appointment-note');
+                    // // console.log($('#appointmentNote').val())
+                    // // eval(note).set('state.note', $('#appointmentNote').val());
+                    // eval(note).set('state.note', editor.getData());
+                    document.querySelector('#appointmentSave').addEventListener('click', () => {
+                        let note = $('#appointmentNote').data('appointment-note');
+                        eval(note).set('state.note', editor.getData());
+                    });
+                });
+            } )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
+
 @endpush

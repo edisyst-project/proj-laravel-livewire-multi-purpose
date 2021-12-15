@@ -17,10 +17,7 @@ class UpdateProfile extends Component
     public function updatedImage()
     {
         $previousPath = auth()->user()->avatar;
-//        dd($previousPath);
-
         $path = $this->image->store('/', 'avatars');
-//        dd($path);
 
         auth()->user()->update(['avatar' => $path]);
         Storage::disk('avatars')->delete($previousPath);
