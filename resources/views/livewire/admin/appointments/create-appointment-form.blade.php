@@ -60,15 +60,22 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Select Team Members</label>
-                                            <x-inputs.select2 wire:model="state.members" fake="here" id="members" placeholder="Select members">
-                                                <option>Alabama</option>
-                                                <option>Alaska</option>
-                                                <option>California</option>
-                                                <option>Delaware</option>
-                                                <option>Tennessee</option>
-                                                <option>Texas</option>
-                                                <option>Washington</option>
-                                            </x-inputs.select2>
+                                            <div class="@error('members') is-invalid border border-danger rounded custom-error @enderror">
+                                                <x-inputs.select2 wire:model="state.members" fake="here" id="members" placeholder="Select members">
+                                                    <option>Alabama</option>
+                                                    <option>Alaska</option>
+                                                    <option>California</option>
+                                                    <option>Delaware</option>
+                                                    <option>Tennessee</option>
+                                                    <option>Texas</option>
+                                                    <option>Washington</option>
+                                                </x-inputs.select2>
+                                            </div>
+                                            @error('members')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -198,29 +205,15 @@
 
 
 @push('js')
-
-
     <!-- CK Editor scripts -->
     <script src="https://cdn.ckeditor.com/ckeditor5/31.0.0/classic/ckeditor.js"></script>
     <script>
-        ClassicEditor
-            .create( document.querySelector( '#appointmentNote' ) )
-            .then( editor => {
-                console.log( editor );
-                editor.model.document.on('change:data', () =>{
-                    // let note = $('#appointmentNote').data('appointment-note');
-                    // // console.log($('#appointmentNote').val())
-                    // // eval(note).set('state.note', $('#appointmentNote').val());
-                    // eval(note).set('state.note', editor.getData());
-                    document.querySelector('#appointmentSave').addEventListener('click', () => {
-                        let note = $('#appointmentNote').data('appointment-note');
-                        eval(note).set('state.note', editor.getData());
-                    });
-                });
-            } )
-            .catch( error => {
-                console.error( error );
-            } );
+        ClassicEditor.create( document.querySelector( '#appointmentNote' ) );
+        $('form').submit(function () {
+            @this.set('state.members', $('#members').val());
+            @this.set('state.note', $('#appointmentNote').val());
+        })
     </script>
-
 @endpush
+
+

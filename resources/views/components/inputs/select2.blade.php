@@ -34,12 +34,12 @@
 
     <script>
         $(document).ready(function () {
-            //Initialize Select2 Elements
             $('#{{ $id }}').select2({
                 theme: 'bootstrap4'
-            }).on('change', function () {
-                @this.set('{{ $attributes->whereStartsWith('wire:model')->first() }}', $(this).val()); // @this è di Livewire
-            });
+            })
+//                .on('change', function () {
+//                @this.set('{{ $attributes->whereStartsWith('wire:model')->first() }}', $(this).val()); // @this è di Livewire
+//            });
         });
     </script>
 @endpush

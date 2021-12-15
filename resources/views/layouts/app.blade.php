@@ -26,6 +26,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 {{--    <link href="{{ asset('css/loadawesome.css') }}" rel="stylesheet"/>--}}
 
 
+    <style>
+        .custom-error .select2-selection {
+            border: none;
+        }
+    </style>
+
+
     @stack('styles')
 
     <!-- Livewire styles -->
