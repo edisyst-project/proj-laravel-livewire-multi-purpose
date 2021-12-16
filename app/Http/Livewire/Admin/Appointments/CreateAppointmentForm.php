@@ -26,6 +26,7 @@ class CreateAppointmentForm extends Component
                 'status'    => ['required', 'in:SCHEDULED,CLOSED'],
                 'note'      => ['nullable'],
                 'members'   => ['required'],
+                'color'     => ['required'],
             ],[
                 'client_id.required' => 'YOU HAVE TO SELECT A CLIENT!!!!!!',
         ])->validate();

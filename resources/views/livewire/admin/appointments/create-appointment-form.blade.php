@@ -78,24 +78,23 @@
                                             @enderror
                                         </div>
                                     </div>
+                                </div>
 
+                                <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Select Others</label>
-                                            <x-inputs.select2 wire:model="state.others" id="others" placeholder="Select others">
-                                                <option>Alabama</option>
-                                                <option>Alaska</option>
-                                                <option>California</option>
-                                                <option>Delaware</option>
-                                                <option>Tennessee</option>
-                                                <option>Texas</option>
-                                                <option>Washington</option>
-                                            </x-inputs.select2>
+                                            <label>Color picker:</label>
+                                            <input type="text" class="form-control @error('color') is-invalid @enderror" id="colorPicker">
                                         </div>
+                                        @error('color')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
-
-
                                 </div>
+
+
 
                                 <!-- COMPONENT Time Picker -->
 {{--                                <div class="row">--}}
@@ -119,21 +118,6 @@
 {{--                                    </div>--}}
 {{--                                </div>--}}
 
-                                <!-- Date -->
-                                <div class="form-group">
-                                    <label>Appointment Date:</label>
-                                    <div class="input-group date" data-target-input="nearest">
-                                        <x-datepicker wire:model.defer="state.date" id="appointmentDate" :error="'date'"></x-datepicker>
-                                        <div class="input-group-append" data-target="#appointmentDate" data-toggle="datetimepicker">
-                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                        </div>
-                                        @error('date')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>
 {{--                                <div class="form-group">--}}
 {{--                                    <label>Appointment Date:</label>--}}
 {{--                                    <div wire:ignore class="input-group date" id="appointmentDate" data-target-input="nearest" data-appointment-date="@this">--}}
@@ -144,19 +128,40 @@
 {{--                                    </div>--}}
 {{--                                </div>--}}
 
-                                <!-- Time Picker -->
-                                <div class="form-group">
-                                    <label>Appointment Time:</label>
-                                    <div class="input-group date" data-target-input="nearest">
-                                        <x-timepicker wire:model.defer="state.time" id="appointmentTime" :error="'time'"></x-timepicker>
-                                        <div class="input-group-append" data-target="#appointmentTime" data-toggle="datetimepicker">
-                                            <div class="input-group-text"><i class="far fa-clock"></i></div>
-                                        </div>
-                                        @error('time')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <!-- Date -->
+                                        <div class="form-group">
+                                            <label>Appointment Date:</label>
+                                            <div class="input-group date" data-target-input="nearest">
+                                                <x-datepicker wire:model.defer="state.date" id="appointmentDate" :error="'date'"></x-datepicker>
+                                                <div class="input-group-append" data-target="#appointmentDate" data-toggle="datetimepicker">
+                                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                </div>
+                                                @error('date')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
                                             </div>
-                                        @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <!-- Time Picker -->
+                                        <div class="form-group">
+                                            <label>Appointment Time:</label>
+                                            <div class="input-group date" data-target-input="nearest">
+                                                <x-timepicker wire:model.defer="state.time" id="appointmentTime" :error="'time'"></x-timepicker>
+                                                <div class="input-group-append" data-target="#appointmentTime" data-toggle="datetimepicker">
+                                                    <div class="input-group-text"><i class="far fa-clock"></i></div>
+                                                </div>
+                                                @error('time')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -205,13 +210,22 @@
 
 
 @push('js')
+
+    <script>
+        //Colorpicker
+        $('#colorPicker').colorpicker();
+    </script>
+
     <!-- CK Editor scripts -->
     <script src="https://cdn.ckeditor.com/ckeditor5/31.0.0/classic/ckeditor.js"></script>
+
     <script>
         ClassicEditor.create( document.querySelector( '#appointmentNote' ) );
+
         $('form').submit(function () {
             @this.set('state.members', $('#members').val());
             @this.set('state.note', $('#appointmentNote').val());
+            @this.set('state.color', $('#colorPicker').val());
         })
     </script>
 @endpush

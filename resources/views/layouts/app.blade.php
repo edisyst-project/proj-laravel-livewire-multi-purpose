@@ -33,6 +33,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </style>
 
 
+
+    <!-- Bootstrap Color Picker -->
+    <link rel="stylesheet" href="{{ asset('backend/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css') }}">
+
+
+
     @stack('styles')
 
     <!-- Livewire styles -->
@@ -85,11 +91,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script defer src="https://unpkg.com/alpinejs@3.7.0/dist/cdn.min.js"></script>
 
 
-<!-- Livewire scripts -->
-<livewire:scripts />
 
+<!-- bootstrap color picker -->
+<script src="{{ asset('backend/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js') }}"></script>
 
-@stack('js')
 
 
 <script>
@@ -148,6 +153,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
         toastr.success(event.detail.message, 'Success !!!');
     })
 </script>
+
+@stack('js')
+
+<!-- Livewire scripts -->
+<livewire:scripts />
 
 </body>
 </html>
