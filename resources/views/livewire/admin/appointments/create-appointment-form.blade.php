@@ -80,17 +80,34 @@
                                     </div>
                                 </div>
 
+                                <!-- Color picker -->
                                 <div class="row">
                                     <div class="col-md-6">
+
+                                        <!-- Color Picker -->
                                         <div class="form-group">
-                                            <label>Color picker:</label>
-                                            <input type="text" class="form-control @error('color') is-invalid @enderror" id="colorPicker">
-                                        </div>
-                                        @error('color')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
+                                            <label>Color picker with addon:</label>
+                                            <div class="input-group" id="colorPicker">
+                                                <input type="text" class="form-control" name="color">
+
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text"><i class="fas fa-square"></i></span>
+                                                </div>
                                             </div>
-                                        @enderror
+                                        </div>
+
+{{--                                        <div wire:ignore.self class="form-group">--}}
+{{--                                            <label>Color picker:</label>--}}
+{{--                                            <input wire:model.defer="state.color" type="text"--}}
+{{--                                                   class="form-control @error('color') is-invalid @enderror"--}}
+{{--                                                   id="colorPicker"--}}
+{{--                                            >--}}
+{{--                                            @error('color')--}}
+{{--                                                <div class="invalid-feedback">--}}
+{{--                                                    {{ $message }}--}}
+{{--                                                </div>--}}
+{{--                                            @enderror--}}
+{{--                                        </div>--}}
                                     </div>
                                 </div>
 
@@ -213,7 +230,9 @@
 
     <script>
         //Colorpicker
-        $('#colorPicker').colorpicker();
+        $('#colorPicker').colorpicker().on('change', function(event) {
+            $('#colorPicker .fa-square').css('color', event.color.toString());
+        });
     </script>
 
     <!-- CK Editor scripts -->
@@ -225,8 +244,10 @@
         $('form').submit(function () {
             @this.set('state.members', $('#members').val());
             @this.set('state.note', $('#appointmentNote').val());
-            @this.set('state.color', $('#colorPicker').val());
+            @this.set('state.color', $('[name=color]').val());
         })
+
+
     </script>
 @endpush
 
