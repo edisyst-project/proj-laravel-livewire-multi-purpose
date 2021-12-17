@@ -25,6 +25,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- LoadAwesome styles -->
 {{--    <link href="{{ asset('css/loadawesome.css') }}" rel="stylesheet"/>--}}
 
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="https://www.unpkg.com/browse/tailwindcss@2.0.0/dist/tailwind.min.css">
+    <!-- Animate.style -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
     <style>
         .custom-error .select2-selection {
@@ -33,10 +37,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </style>
 
 
-
     <!-- Bootstrap Color Picker -->
     <link rel="stylesheet" href="{{ asset('backend/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css') }}">
-
 
 
     @stack('styles')
@@ -90,11 +92,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- Alpine JS scripts -->
 <script defer src="https://unpkg.com/alpinejs@3.7.0/dist/cdn.min.js"></script>
 
-
-
 <!-- bootstrap color picker -->
 <script src="{{ asset('backend/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js') }}"></script>
 
+<!-- Apexcharts scripts -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
 
 <script>
@@ -158,6 +160,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!-- Livewire scripts -->
 <livewire:scripts />
+
 
 </body>
 </html>
