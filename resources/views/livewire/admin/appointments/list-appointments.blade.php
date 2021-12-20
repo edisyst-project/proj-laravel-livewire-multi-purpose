@@ -44,6 +44,7 @@
                                     <a wire:click.prevent="markAllAsClosed" class="dropdown-item" href="#">Mark as Closed</a>
                                     <div class="dropdown-divider"></div>
                                     <a wire:click.prevent="deleteSelectedRows" class="dropdown-item" href="#">Delete Selected</a>
+                                    <a wire:click.prevent="export" class="dropdown-item" href="#">Export XLS</a>
                                 </div>
                                 <span class="ml-4">
                                     Selected {{ count($selectedRows) }} {{ \Illuminate\Support\Str::plural('appointment', count($selectedRows)) }}

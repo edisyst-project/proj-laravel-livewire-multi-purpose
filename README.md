@@ -24,6 +24,9 @@ I components normali di blade invece li creo a mano dentro view/components
 - [x] https://labs.danielcardoso.net/load-awesome/
 - [x] https://github.com/alpinejs/alpine
 
+### Laravel PKG
+- https://docs.laravel-excel.com/3.1/getting-started/
+
 ### AUTH Fortify
 
 `composer require laravel/fortify`
