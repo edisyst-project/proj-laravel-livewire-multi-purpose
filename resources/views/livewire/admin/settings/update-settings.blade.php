@@ -27,34 +27,34 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form>
+                        <form wire:submit.prevent="updateSettings">
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="siteName">Site name</label>
-                                    <input type="text" class="form-control" id="siteName" placeholder="Enter Site name">
+                                    <input wire:model.defer="state.site_name" type="text" class="form-control" id="siteName" placeholder="Enter Site name">
                                 </div>
                                 <div class="form-group">
                                     <label for="siteName">Site email</label>
-                                    <input type="email" class="form-control" id="siteEmail" placeholder="Enter Site email">
+                                    <input wire:model.defer="state.site_email" type="email" class="form-control" id="siteEmail" placeholder="Enter Site email">
                                 </div>
                                 <div class="form-group">
                                     <label for="siteName">Site title</label>
-                                    <input type="text" class="form-control" id="siteTitle" placeholder="Enter Site title">
+                                    <input wire:model.defer="state.site_title" type="text" class="form-control" id="siteTitle" placeholder="Enter Site title">
                                 </div>
                                 <div class="form-group">
                                     <label for="footerText">Footer Text</label>
-                                    <input type="text" class="form-control" id="footerText" placeholder="Enter Footer Text">
+                                    <input wire:model.defer="state.footer_text" type="text" class="form-control" id="footerText" placeholder="Enter Footer Text">
                                 </div>
                                 <div class="form-group">
                                     <label for="sidebar_collapse">Sidebar collapse</label>
                                     <br />
-                                    <input type="checkbox" class="" id="sidebar_collapse">
+                                    <input wire:model.defer="state.sidebar_collapse" type="checkbox" class="" id="sidebar_collapse">
                                 </div>
                             </div>
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary"><i class="fa fa-save mr-2"></i>Save changes</button>
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-save mr-1"></i>Save changes</button>
                             </div>
                         </form>
                     </div>
