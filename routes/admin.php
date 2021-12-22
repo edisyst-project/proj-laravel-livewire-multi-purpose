@@ -21,4 +21,5 @@ Route::get('profile', \App\Http\Livewire\Admin\Profile\UpdateProfile::class)->na
 
 Route::get('analytics', \App\Http\Livewire\Analytics::class)->name('analytics');
 
+Route::get('settings', \App\Http\Livewire\Admin\Settings\UpdateSettings::class)->name('settings');
 
