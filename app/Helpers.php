@@ -1,11 +1,15 @@
 <?php
 
 
+use App\Models\Setting;
+use App\NullSetting;
+use Illuminate\Support\Facades\Cache;
+
 function setting($key)
 {
-    $setting = \Illuminate\Support\Facades\Cache::rememberForever('setting', function (){
-        return \App\Models\Setting::first();
+    $setting = Cache::rememberForever('setting', function (){
+            return Setting::first() ?? NullSetting::make();
     });
 
-    return \App\Models\Setting::first()->{$key};
+    return $setting->{$key};
 }

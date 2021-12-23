@@ -46,9 +46,10 @@
                                     <input wire:model.defer="state.footer_text" type="text" class="form-control" id="footerText" placeholder="Enter Footer Text">
                                 </div>
                                 <div class="form-group">
-                                    <label for="sidebar_collapse">Sidebar collapse</label>
-                                    <br />
-                                    <input wire:model.defer="state.sidebar_collapse" type="checkbox" class="" id="sidebar_collapse">
+                                    <div class="custom-control custom-switch">
+                                        <input wire:model.defer="state.sidebar_collapse" type="checkbox" class="custom-control-input" id="sidebar_collapse">
+                                        <label class="custom-control-label" for="sidebar_collapse">Sidebar collapse</label>
+                                    </div>
                                 </div>
                             </div>
                             <!-- /.card-body -->
@@ -64,4 +65,12 @@
         </div>
     </section>
 </div>
+
+@push('js')
+    <script>
+        $('#sidebar_collapse').on('change', function () {
+            $('body').toggleClass('sidebar-collapse')
+        })
+    </script>
+@endpush
 

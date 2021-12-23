@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin\Settings;
 
 use App\Models\Setting;
+use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
 
 class UpdateSettings extends Component
@@ -12,8 +13,10 @@ class UpdateSettings extends Component
 
     public function mount()
     {
-        if (Setting::first()) {
-            $this->state = Setting::first()->toArray();
+        $setting = Setting::first();
+
+        if ($setting) {
+            $this->state = $setting->toArray();
         }
     }
 
@@ -26,6 +29,8 @@ class UpdateSettings extends Component
         } else {
             Setting::create($this->state);
         }
+
+        Cache::forever('setting', $setting);
 
         $this->dispatchBrowserEvent('updated', ['message' => 'Settings updated successfully']);
     }
