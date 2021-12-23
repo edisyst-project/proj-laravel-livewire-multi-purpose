@@ -60,16 +60,16 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-md-9">
-                    <div class="card">
+                    <div class="card" x-data="{ currentTab: $persist('editProfile') }">
                         <div class="card-header p-2">
-                            <ul class="nav nav-pills">
-                                <li class="nav-item"><a class="nav-link active" href="#editProfile" data-toggle="tab"><i class="fa fa-user mr-1"></i>Edit Profile</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#changePass" data-toggle="tab"><i class="fa fa-key mr-1"></i>Change Password</a></li>
+                            <ul class="nav nav-pills" wire:ignore>
+                                <li @click.prevent="currentTab = 'editProfile'" class="nav-item"><a class="nav-link" :class="currentTab == 'editProfile' ? 'active' : ''" href="#editProfile" data-toggle="tab"><i class="fa fa-user mr-1"></i>Edit Profile</a></li>
+                                <li @click.prevent="currentTab = 'changePass'"  class="nav-item"><a class="nav-link" :class="currentTab == 'changePass'  ? 'active' : ''" href="#changePass"  data-toggle="tab"><i class="fa fa-key mr-1"></i>Change Password</a></li>
                             </ul>
                         </div><!-- /.card-header -->
                         <div class="card-body">
                             <div class="tab-content">
-                                <div class="tab-pane active" id="editProfile">
+                                <div class="tab-pane" :class="currentTab == 'editProfile' ? 'active' : ''" id="editProfile" wire:ignore.self>
                                     <form wire:submit.prevent="updateProfile" class="form-horizontal">
                                         <div class="form-group row">
                                             <label for="inputName" class="col-sm-2 col-form-label">Name</label>
@@ -94,20 +94,6 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="inputEmail" class="col-sm-2 col-form-label">Team Members</label>
-                                            <div class="col-sm-10">
-                                                <x-inputs.select2 wire:model="state.members" fake="here" id="members" placeholder="Select members">
-                                                    <option>Alabama</option>
-                                                    <option>Alaska</option>
-                                                    <option>California</option>
-                                                    <option>Delaware</option>
-                                                    <option>Tennessee</option>
-                                                    <option>Texas</option>
-                                                    <option>Washington</option>
-                                                </x-inputs.select2>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
                                             <div class="offset-sm-2 col-sm-10">
                                                 <button type="submit" class="btn btn-success"><i class="fa fa-save mr-1"></i>Save changes</button>
                                             </div>
@@ -115,18 +101,39 @@
                                     </form>
                                 </div>
                                 <!-- /.tab-pane -->
-                                <div class="tab-pane" id="changePass">
-                                    <form wire:submit.prevent="updateProfile" class="form-horizontal">
+                                <div class="tab-pane" :class="currentTab == 'changePass' ? 'active' : ''" id="changePass" wire:ignore.self>
+                                    <form wire:submit.prevent="changePassword" class="form-horizontal">
                                         <div class="form-group row">
-                                            <label for="inputName" class="col-sm-2 col-form-label">Password</label>
+                                            <label for="currentPassword" class="col-sm-2 col-form-label">Current Password</label>
                                             <div class="col-sm-10">
-                                                <input wire:model.defer="state.name" type="text" class="form-control" id="inputName" placeholder="Password">
+                                                <input wire:model.defer="state.current_password" type="password" class="form-control @error('current_password') is-invalid @enderror" id="currentPassword" placeholder="Your Password">
+                                                @error('current_password')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="inputEmail" class="col-sm-2 col-form-label">Retype Password</label>
+                                            <label for="password" class="col-sm-2 col-form-label">New Password</label>
                                             <div class="col-sm-10">
-                                                <input wire:model.defer="state.email" type="email" class="form-control" id="inputEmail" placeholder="Retype Password">
+                                                <input wire:model.defer="state.password" type="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="New Password">
+                                                @error('password')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="passwordConfirmation" class="col-sm-2 col-form-label">Retype New Password</label>
+                                            <div class="col-sm-10">
+                                                <input wire:model.defer="state.password_confirmation" type="password" class="form-control @error('password_confirmation') is-invalid @enderror" id="passwordConfirmation" placeholder="Retype New Password">
+                                                @error('password_confirmation')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -158,6 +165,11 @@
             cursor: pointer;
         }
     </style>
+@endpush
+
+
+@push('alpine-plugins')
+    <script defer src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
 @endpush
 
 

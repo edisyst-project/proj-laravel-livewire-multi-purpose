@@ -14,6 +14,28 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
+
+
+
+        <!-- User Profile Dropdown Menu -->
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" href="#">
+                <img src="{{ auth()->user()->avatar_url }}" id="profileImage" class="img-circle elevation-2" alt="User Image" style="height:30px">
+                <span class="ml-1" x-ref="username">{{ auth()->user()->name }}</span>
+            </a>
+            <div class="dropdown-menu">
+                <a href="{{ route('admin.profile.edit') }}" class="dropdown-item" x-ref="profileLink">Profile</a>
+                <a href="{{ route('admin.profile.edit') }}" class="dropdown-item" x-ref="changePassLink">Change Password</a>
+                <a href="{{ route('admin.settings') }}" class="dropdown-item">Settings</a>
+                <div class="dropdown-divider"></div>
+                <form action="{{ route('logout') }}" method="POST">
+                    <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault()">Logout</a>
+                </form>
+            </div>
+        </li>
+
+
+
         <!-- Navbar Search -->
         <li class="nav-item">
             <a class="nav-link" data-widget="navbar-search" href="#" role="button">

@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire\Admin\Profile;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
+use Laravel\Fortify\Contracts\UpdatesUserPasswords;
 use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
 use Livewire\Component;
 use Livewire\FileUploadConfiguration;
@@ -15,6 +17,27 @@ class UpdateProfile extends Component
     public $image;
     public $state = [];
 
+
+    public function changePassword(UpdatesUserPasswords $updater)
+    {
+//        $updater->update(auth()->user(), [
+//            'current_password'      => $this->state['current_password'] ?? '',
+//            'password'              => $this->state['password'] ?? '',
+//            'password_confirmation' => $this->state['password_confirmation'] ?? '',
+//        ]);
+//        $this->state['current_password'] = '';
+//        $this->state['password'] = '';
+//        $this->state['password_confirmation'] = '';
+
+        $updater->update(
+            auth()->user(),
+            $attributes = Arr::only($this->state, ['current_password', 'password', 'password_confirmation'])
+        );
+
+        collect($attributes)->map(fn ($value, $key) => $this->state[$key] = '');
+
+        $this->dispatchBrowserEvent('updated', ['message' => 'Password updated successfully!']);
+    }
 
     public function updateProfile(UpdatesUserProfileInformation $updater)
     {

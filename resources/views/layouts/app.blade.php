@@ -90,6 +90,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- Tempus Dominus scripts -->
 <script src="{{ asset('backend/plugins/moment/moment.min.js') }}"></script>
 <script src="{{ asset('backend/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+
+<!-- Alpine JS Plugins -->
+@stack('alpine-plugins')
 <!-- Alpine JS scripts -->
 <script defer src="https://unpkg.com/alpinejs@3.7.0/dist/cdn.min.js"></script>
 
@@ -154,6 +157,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
     })
     window.addEventListener('updated', event => {
         toastr.success(event.detail.message, 'Success !!!');
+    })
+
+    $('[x-ref="profileLink"]').on('click', function () {
+        localStorage.setItem('_x_currentTab', '"editProfile"');
+    })
+    $('[x-ref="changePassLink"]').on('click', function () {
+        localStorage.setItem('_x_currentTab', '"changePass"');
     })
 </script>
 
