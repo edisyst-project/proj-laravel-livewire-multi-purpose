@@ -18,6 +18,7 @@ class Appointment extends Model
         'note',
         'members',
         'color',
+        'order_position',
     ];
 
     protected $casts = [

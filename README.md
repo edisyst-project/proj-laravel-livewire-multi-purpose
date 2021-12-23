@@ -19,10 +19,15 @@ Da questo momento, per esempio per List-Users uso un livewire component
 I components normali di blade invece li creo a mano dentro view/components
 
 ### External PKGS
+- [x] https://laravel-livewire.com/docs/2.x/properties
 - [x] https://sweetalert2.github.io/#examples
 - [ ] https://undraw.co/search
 - [x] https://labs.danielcardoso.net/load-awesome/
+- [x] https://docs.laravel-excel.com/3.1/exports/
+- [ ] https://apexcharts.com/docs/creating-first-javascript-chart/
 - [x] https://github.com/alpinejs/alpine
+- [x] https://alpinejs.dev/plugins/persist
+- [x] https://github.com/livewire/sortable
 
 ### Laravel PKG
 - https://docs.laravel-excel.com/3.1/getting-started/

@@ -22,6 +22,18 @@ class ListAppointments extends AdminComponent
     public $selectPageRows = false;
 
 
+    public function updateAppointmentsOrder($items)
+    {
+//        dd($items);
+        foreach ($items as $item){
+            Appointment::find($item['value'])->update([
+                'order_position' => $item['order']
+            ]);
+        }
+
+        $this->dispatchBrowserEvent('updated', ['message' => 'Appointments sorted!']);
+    }
+
     public function export()
     {
         return (new AppointmentsExport($this->selectedRows))->download('appointments.xlsx');
@@ -81,7 +93,8 @@ class ListAppointments extends AdminComponent
             ->when($this->status, function ($query, $status){
                 return $query->where('status', $status);
             })
-            ->latest()
+//            ->latest()
+            ->orderBy('order_position')
             ->paginate(5);
     }
 

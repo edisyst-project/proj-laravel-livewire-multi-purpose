@@ -76,6 +76,7 @@
                             <table class="table table-hover">
                                 <thead>
                                 <tr>
+                                    <th></th>
                                     <th scope="col">
                                         <div class="icheck-primary d-inline ml-2">
                                             <input wire:model="selectPageRows" type="checkbox" id="todoCheck2" value="">
@@ -90,9 +91,10 @@
                                     <th scope="col">Options</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody wire:sortable="updateAppointmentsOrder">
                                 @forelse($appointments as $appointment)
-                                    <tr>
+                                    <tr wire:sortable.item="{{ $appointment->id }}" wire:key="task-{{ $appointment->id }}">
+                                        <td wire:sortable.handle style="cursor: move;"><i class="fa fa-arrows-alt"></i></td>
                                         <td>
                                             <div class="icheck-primary d-inline ml-2">
                                                 <input wire:model="selectedRows" type="checkbox" value="{{ $appointment->id }}" id="{{ $appointment->id }}">
@@ -140,7 +142,17 @@
     <!-- /.content -->
 
     <x-confirmation-alert />
-
-
 </div>
+
+@push('styles')
+    <style>
+        .draggable-mirror {
+            background-color: white;
+            width: 950px;
+            display: flex;
+            justify-content: space-between;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+    </style>
+@endpush
 

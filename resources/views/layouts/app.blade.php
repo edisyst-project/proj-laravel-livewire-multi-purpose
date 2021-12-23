@@ -171,6 +171,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!-- Livewire scripts -->
 <livewire:scripts />
+<script src="https://cdn.jsdelivr.net/gh/livewire/sortable@v0.x.x/dist/livewire-sortable.js"></script>
 
 
 </body>
