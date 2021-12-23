@@ -37,6 +37,14 @@
         </li>
 
         <!-- Messages Dropdown Menu -->
+{{--        <li class="nav-item dropdown">--}}
+{{--            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">--}}
+{{--                <img src="{{ auth()->user()->avatar_url }}" id="profileImage" class="img-circle">--}}
+{{--                <span class="badge badge-danger navbar-badge"  x-ref="username">{{ auth()->user()->name }}</span>--}}
+{{--            </a>--}}
+{{--        </li>--}}
+
+
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="far fa-comments"></i>

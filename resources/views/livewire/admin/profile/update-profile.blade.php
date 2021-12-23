@@ -46,9 +46,9 @@
                                     class="profile-user-img img-circle" alt="User profile picture">
                             </div>
 
-                            <h3 class="profile-username text-center">Nina Mcintire</h3>
+                            <h3 class="profile-username text-center">{{ auth()->user()->name }}</h3>
 
-                            <p class="text-muted text-center">Software Engineer</p>
+                            <p class="text-muted text-center">{{ auth()->user()->role }}</p>
 
                         </div>
                         <!-- /.card-body -->
@@ -63,34 +63,34 @@
                     <div class="card">
                         <div class="card-header p-2">
                             <ul class="nav nav-pills">
-                                <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab">Settings</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Change Password</a></li>
+                                <li class="nav-item"><a class="nav-link active" href="#editProfile" data-toggle="tab"><i class="fa fa-user mr-1"></i>Edit Profile</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#changePass" data-toggle="tab"><i class="fa fa-key mr-1"></i>Change Password</a></li>
                             </ul>
                         </div><!-- /.card-header -->
                         <div class="card-body">
                             <div class="tab-content">
-                                <div class="active tab-pane" id="activity">
-
-                                </div>
-                                <!-- /.tab-pane -->
-                                <div class="tab-pane" id="timeline">
-                                    <!-- The timeline -->
-
-                                </div>
-                                <!-- /.tab-pane -->
-
-                                <div class="tab-pane" id="settings">
-                                    <form class="form-horizontal">
+                                <div class="tab-pane active" id="editProfile">
+                                    <form wire:submit.prevent="updateProfile" class="form-horizontal">
                                         <div class="form-group row">
                                             <label for="inputName" class="col-sm-2 col-form-label">Name</label>
                                             <div class="col-sm-10">
-                                                <input type="email" class="form-control" id="inputName" placeholder="Name">
+                                                <input wire:model.defer="state.name" type="text" class="form-control @error('name') is-invalid @enderror" id="inputName" placeholder="Name">
+                                                @error('name')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                                             <div class="col-sm-10">
-                                                <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                                                <input wire:model.defer="state.email" type="email" class="form-control @error('email') is-invalid @enderror" id="inputEmail" placeholder="Email">
+                                                @error('email')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -109,7 +109,29 @@
                                         </div>
                                         <div class="form-group row">
                                             <div class="offset-sm-2 col-sm-10">
-                                                <button type="submit" class="btn btn-danger">Submit</button>
+                                                <button type="submit" class="btn btn-success"><i class="fa fa-save mr-1"></i>Save changes</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- /.tab-pane -->
+                                <div class="tab-pane" id="changePass">
+                                    <form wire:submit.prevent="updateProfile" class="form-horizontal">
+                                        <div class="form-group row">
+                                            <label for="inputName" class="col-sm-2 col-form-label">Password</label>
+                                            <div class="col-sm-10">
+                                                <input wire:model.defer="state.name" type="text" class="form-control" id="inputName" placeholder="Password">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="inputEmail" class="col-sm-2 col-form-label">Retype Password</label>
+                                            <div class="col-sm-10">
+                                                <input wire:model.defer="state.email" type="email" class="form-control" id="inputEmail" placeholder="Retype Password">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="offset-sm-2 col-sm-10">
+                                                <button type="submit" class="btn btn-success"><i class="fa fa-save"></i>Save changes</button>
                                             </div>
                                         </div>
                                     </form>
@@ -136,4 +158,16 @@
             cursor: pointer;
         }
     </style>
+@endpush
+
+
+@push('js')
+    <script>
+        $(document).ready(function () {
+            Livewire.on('nameChanged', (changedName) => {
+                // console.log('nome nuovo: ' + changedName);
+                $('[x-ref="username"]').text(changedName)
+            })
+        });
+    </script>
 @endpush

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin\Profile;
 
 use Illuminate\Support\Facades\Storage;
+use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
 use Livewire\Component;
 use Livewire\FileUploadConfiguration;
 use Livewire\WithFileUploads;
@@ -15,6 +16,18 @@ class UpdateProfile extends Component
     public $state = [];
 
 
+    public function updateProfile(UpdatesUserProfileInformation $updater)
+    {
+        $updater->update(auth()->user(), [
+            'name'  => $this->state['name'],
+            'email' => $this->state['email'],
+        ]);
+
+        $this->emit('nameChanged', auth()->user()->name);
+
+        $this->dispatchBrowserEvent('updated', ['message' => 'Profile updated successfully!']);
+    }
+
     public function updatedImage()
     {
         $previousPath = auth()->user()->avatar;
@@ -23,7 +36,7 @@ class UpdateProfile extends Component
         auth()->user()->update(['avatar' => $path]);
         Storage::disk('avatars')->delete($previousPath);
 
-        $this->dispatchBrowserEvent('updated', ['message' => 'Profile changed successfully!']);
+        $this->dispatchBrowserEvent('updated', ['message' => 'Profile image changed successfully!']);
     }
 
     protected function cleanupOldUploads() // riscrivo questo metodo del trait WithFileUploads
@@ -37,6 +50,11 @@ class UpdateProfile extends Component
                 $storage->delete($filePathname);
             }
         }
+    }
+
+    public function mount()
+    {
+        $this->state = auth()->user()->only(['name', 'email']);
     }
 
     public function render()
