@@ -18,6 +18,9 @@ Da questo momento, per esempio per List-Users uso un livewire component
 
 I components normali di blade invece li creo a mano dentro view/components
 
+### Per customizzare la paginazione 
+    livewire:publish --pagination
+
 ### External PKGS
 - [x] https://laravel-livewire.com/docs/2.x/properties
 - [x] https://sweetalert2.github.io/#examples
@@ -37,6 +40,10 @@ I components normali di blade invece li creo a mano dentro view/components
 `composer require laravel/fortify`
 
 Credenziali: admin@admin.com - admin
+
+
+### NPM
+npm install admin-lte@^3.0 --save
 
 
 

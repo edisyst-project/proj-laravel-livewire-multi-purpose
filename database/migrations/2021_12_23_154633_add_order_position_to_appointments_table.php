@@ -14,7 +14,7 @@ class AddOrderPositionToAppointmentsTable extends Migration
     public function up()
     {
         Schema::table('appointments', function (Blueprint $table) {
-            $table->integer('order_position')->default(null);
+            $table->integer('order_position')->nullable()->default(null);
         });
     }
 

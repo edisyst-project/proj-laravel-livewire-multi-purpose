@@ -19,6 +19,20 @@ class ListUsers extends AdminComponent
     public $userIdBeingRemoved = null;
     public $searchTerm = null;
     public $photo;
+    public $sortColumnName = 'created_at';
+    public $sortDirection  = 'desc';
+
+    protected $queryString = [
+        'searchTerm' => [
+            'except' => ''
+        ]
+    ];
+
+
+    public function updatedSearchTerm()
+    {
+        $this->resetPage();
+    }
 
 
     public function changeRole(User $user, $role)
@@ -121,12 +135,31 @@ class ListUsers extends AdminComponent
     }
 
 
+    public function sortBy($columnName)
+    {
+        if ($this->sortColumnName === $columnName) {
+            $this->sortDirection = $this->swapSortDirection();
+        } else {
+            $this->sortDirection = 'asc';
+        }
+
+        $this->sortColumnName = $columnName;
+    }
+
+
+    public function swapSortDirection()
+    {
+        return $this->sortDirection === 'asc' ? 'desc' : 'asc';
+    }
+
+
     public function render()
     {
         $users = User::query()
             ->where('name', 'like', '%' .$this->searchTerm. '%')
             ->orWhere('email', 'like', '%' .$this->searchTerm. '%')
-            ->latest()
+            ->orderBy($this->sortColumnName, $this->sortDirection)
+//            ->latest()
             ->paginate(5);
 
         return view('livewire.admin.users.list-users', compact('users'));

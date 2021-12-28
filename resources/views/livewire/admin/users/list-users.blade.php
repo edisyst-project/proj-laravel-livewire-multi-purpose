@@ -45,28 +45,41 @@
                     </div>
                     <div class="card">
                         <div class="card-body">
-                            <table class="table table-hover">
+                            <table class="table table-hover table-bordered">
                                 <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Email</th>
+                                    <th scope="col">
+                                        Name
+                                        <span wire:click="sortBy('name')" class="float-right text-sm" style="cursor: pointer">
+                                            <i class="fa fa-arrow-up   {{ $sortColumnName === 'name' && $sortDirection === 'asc'  ? '' : 'text-muted' }}"></i>
+                                            <i class="fa fa-arrow-down {{ $sortColumnName === 'name' && $sortDirection === 'desc' ? '' : 'text-muted' }}"></i>
+                                        </span>
+                                    </th>
+                                    <th scope="col">
+                                        Email
+                                        <span wire:click="sortBy('email')" class="float-right text-sm" style="cursor: pointer">
+                                            <i class="fa fa-arrow-up   {{ $sortColumnName === 'email' && $sortDirection === 'asc'  ? '' : 'text-muted' }}"></i>
+                                            <i class="fa fa-arrow-down {{ $sortColumnName === 'email' && $sortDirection === 'desc' ? '' : 'text-muted' }}"></i>
+                                        </span>
+                                    </th>
                                     <th scope="col">Registration date</th>
                                     <th scope="col">Role</th>
                                     <th scope="col">Options</th>
                                 </tr>
                                 </thead>
                                 <tbody wire:loading.class="text-muted">
-                                    @forelse($users as $user)
+                                    @forelse($users as $index => $user)
                                         <tr>
-                                            <td>{{ $loop->iteration }}</td>
+{{--                                            <td>{{ $loop->iteration }}</td>--}}
+                                            <td>{{ $users->firstItem() + $index }}</td>
                                             <td>
                                                 <img style="width: 50px;" class="img img-circle mr-1"
                                                      src="{{ $user->avatar_url }}" />
                                                 {{ $user->name }}
                                             </td>
                                             <td>{{ $user->email }}</td>
-                                            <td>{{ $user->created_at->toFormattedDate() }}</td>
+                                            <td>{{ $user->created_at?->toFormattedDate() ?? 'Not Avaible' }}</td> {{-- il ? funge con PHP 8: mi accetta anche created_at=NULL --}}
                                             <td>
                                                 <select class="form-control" wire:change="changeRole({{ $user }}, $event.target.value)">
                                                     <option value="admin" {{ ($user->role === 'admin') ? 'selected' : '' }}>ADMIN</option>
@@ -84,7 +97,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="5">
+                                            <td colspan="6">
                                                 <div class="alert alert-default-danger text-center">
                                                     <img src="https://cdn-icons-png.flaticon.com/512/1178/1178479.png" alt="No results" height="50" />
                                                     <strong>No users found</strong>

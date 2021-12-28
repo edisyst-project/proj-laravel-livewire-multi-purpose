@@ -55,18 +55,39 @@
                                         </div>
                                     </div>
 
+{{--                                    <div class="col-md-6">--}}
+{{--                                        <div wire:ignore class="form-group">--}}
+{{--                                            <label>Select Team Members</label>--}}
+{{--                                            <select wire:model="state.members" class="select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">--}}
+{{--                                                <option>Alabama</option>--}}
+{{--                                                <option>Alaska</option>--}}
+{{--                                                <option>California</option>--}}
+{{--                                                <option>Delaware</option>--}}
+{{--                                                <option>Tennessee</option>--}}
+{{--                                                <option>Texas</option>--}}
+{{--                                                <option>Washington</option>--}}
+{{--                                            </select>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
                                     <div class="col-md-6">
-                                        <div wire:ignore class="form-group">
+                                        <div class="form-group">
                                             <label>Select Team Members</label>
-                                            <select wire:model="state.members" class="select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
-                                                <option>Alabama</option>
-                                                <option>Alaska</option>
-                                                <option>California</option>
-                                                <option>Delaware</option>
-                                                <option>Tennessee</option>
-                                                <option>Texas</option>
-                                                <option>Washington</option>
-                                            </select>
+                                            <div class="@error('members') is-invalid border border-danger rounded custom-error @enderror">
+                                                <x-inputs.select2 wire:model="state.members" fake="here" id="members" placeholder="Select members">
+                                                    <option>Alabama</option>
+                                                    <option>Alaska</option>
+                                                    <option>California</option>
+                                                    <option>Delaware</option>
+                                                    <option>Tennessee</option>
+                                                    <option>Texas</option>
+                                                    <option>Washington</option>
+                                                </x-inputs.select2>
+                                            </div>
+                                            @error('members')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -152,56 +173,23 @@
 </div>
 
 
+@include('livewire/admin/appointments/appointments-css')
+
+
+@include('livewire/admin/appointments/appointments-js')
+
 
 @push('js')
-    <script>
-        $(document).ready(function () {
-
-            toastr.options = {
-                "progressBar": true,
-                "positionClass": "toast-bottom-right",
-            }
-
-            window.addEventListener('hide-form', event => {
-                $('#form').modal('hide');
-                toastr.success(event.detail.message, 'Success !!!');
-            })
-        })
-    </script>
-
 
     <script>
-        $(document).ready(function () {
-            //Initialize Select2 Elements
-            $('.select2').select2({
-                theme: 'bootstrap4'
-            }).on('change', function () {
-            @this.set('state.members', $(this).val()); // @this è di Livewire
-            });
-        });
+        // $(document).ready(function () {
+        //     //Initialize Select2 Elements
+        //     $('.select2').select2({
+        //         theme: 'bootstrap4'
+        //     }).on('change', function () {
+        //     @this.set('state.members', $(this).val()); // @this è di Livewire
+        //     });
+        // });
     </script>
 
-
-    <!-- CK Editor scripts -->
-    <script src="https://cdn.ckeditor.com/ckeditor5/31.0.0/classic/ckeditor.js"></script>
-    <script>
-        ClassicEditor
-            .create( document.querySelector( '#appointmentNote' ) )
-            .then( editor => {
-                console.log( editor );
-                editor.model.document.on('change:data', () =>{
-                    // let note = $('#appointmentNote').data('appointment-note');
-                    // // console.log($('#appointmentNote').val())
-                    // // eval(note).set('state.note', $('#appointmentNote').val());
-                    // eval(note).set('state.note', editor.getData());
-                    document.querySelector('#appointmentSave').addEventListener('click', () => {
-                        let note = $('#appointmentNote').data('appointment-note');
-                        eval(note).set('state.note', editor.getData());
-                    });
-                });
-            } )
-            .catch( error => {
-                console.error( error );
-            } );
-    </script>
 @endpush

@@ -226,29 +226,10 @@
 </div>
 
 
-@push('js')
-
-    <script>
-        //Colorpicker
-        $('#colorPicker').colorpicker().on('change', function(event) {
-            $('#colorPicker .fa-square').css('color', event.color.toString());
-        });
-    </script>
-
-    <!-- CK Editor scripts -->
-    <script src="https://cdn.ckeditor.com/ckeditor5/31.0.0/classic/ckeditor.js"></script>
-
-    <script>
-        ClassicEditor.create( document.querySelector( '#appointmentNote' ) );
-
-        $('form').submit(function () {
-            @this.set('state.members', $('#members').val());
-            @this.set('state.note', $('#appointmentNote').val());
-            @this.set('state.color', $('[name=color]').val());
-        })
+@include('livewire/admin/appointments/appointments-css')
 
 
-    </script>
-@endpush
+@include('livewire/admin/appointments/appointments-js')
+
 
 
